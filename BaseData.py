@@ -1,7 +1,10 @@
+import csv
+
 class BaseData:
-	def __init__(self, range):
+	def __init__(self, range, dataName):
 		self.Data = None
 		self.Range = range
+		self.DataName = dataName
 
 	def Print(self):
 		if self.Data is None:
@@ -23,3 +26,11 @@ class BaseData:
 			self.Data = None
 		else:
 			self.Data = values
+			self.WriteDataToCSV()
+
+
+	def WriteDataToCSV(self):
+		with open('csvFiles/' + self.DataName + '.csv', 'w', newline='') as csvfile:
+			csvWriter = csv.writer(csvfile, delimiter=',')
+			for row in self.Data:
+				csvWriter.writerow(row)
