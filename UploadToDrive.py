@@ -16,7 +16,7 @@ if not creds or creds.invalid:
 service = build('drive', 'v3', http=creds.authorize(Http()))
 
 def main():
-	UploadFile('test.csv', '176EBMy11cKcYJXqOhxmQRXqBRkCNxEe_')
+	
 
 def UploadFile(filePath, folderID):
 	file_metadata = {
@@ -43,12 +43,11 @@ def AddFolder(folderName):
 def SearchFolder(folderName):
 	page_token = None
 	while True:
-		response = service.files().list(q="mimeType='" + FILETYPE + "' and parents = 'root'",
+		response = service.files().list(q="mimeType='" + FILETYPE + "' and parents = 'root' and name = '" + folderName + "'",
 											fields='nextPageToken, files(id, name)',
 											pageToken=page_token).execute()
 		for eachFile in response.get('files', []):
-			# Process change
-			print('Found file: %s (%s)' % (eachFile.get('name'), eachFile.get('id')))
+			return eachFile.get('id')
 		page_token = response.get('nextPageToken', None)
 		if page_token is None:
 			break
