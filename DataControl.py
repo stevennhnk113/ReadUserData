@@ -31,12 +31,12 @@ class DataControl:
 
 	def GetDataFromGoogleSheets(self, spreadSheetID):
 		self.LocationData.GetDataFromGoogleSheet(self.googleSheetsService, spreadSheetID)
-		#self.DepartmentData.GetDataFromGoogleSheet(self.googleSheetsService, spreadSheetID)
+		self.DepartmentData.GetDataFromGoogleSheet(self.googleSheetsService, spreadSheetID)
 		self.UsersData.GetDataFromGoogleSheet(self.googleSheetsService, spreadSheetID)
 		self.UserRolesData.GetDataFromGoogleSheet(self.googleSheetsService, spreadSheetID)
 		self.ApprovalRoutingData.GetDataFromGoogleSheet(self.googleSheetsService, spreadSheetID)
 		self.AccountCodeData.GetDataFromGoogleSheet(self.googleSheetsService, spreadSheetID)
-		#self.BudgetsData.GetDataFromGoogleSheet(self.googleSheetsService, spreadSheetID)
+		self.BudgetsData.GetDataFromGoogleSheet(self.googleSheetsService, spreadSheetID)
 		self.VendorListData.GetDataFromGoogleSheet(self.googleSheetsService, spreadSheetID)
 		self.ProductCatalogData.GetDataFromGoogleSheet(self.googleSheetsService, spreadSheetID)
 
@@ -53,12 +53,12 @@ class DataControl:
 			return
 
 		self.LocationData.UploadCsvToGoogleDrive(self.driveService, folderID)
-		#self.DepartmentData.UploadCsvToGoogleDrive(self.driveService, folderID)
+		self.DepartmentData.UploadCsvToGoogleDrive(self.driveService, folderID)
 		self.UsersData.UploadCsvToGoogleDrive(self.driveService, folderID)
 		self.UserRolesData.UploadCsvToGoogleDrive(self.driveService, folderID)
 		self.ApprovalRoutingData.UploadCsvToGoogleDrive(self.driveService, folderID)
 		self.AccountCodeData.UploadCsvToGoogleDrive(self.driveService, folderID)
-		#self.BudgetsData.UploadCsvToGoogleDrive(self.driveService, folderID)
+		self.BudgetsData.UploadCsvToGoogleDrive(self.driveService, folderID)
 		self.VendorListData.UploadCsvToGoogleDrive(self.driveService, folderID)
 		self.ProductCatalogData.UploadCsvToGoogleDrive(self.driveService, folderID)
 

@@ -1,5 +1,5 @@
 from __future__ import print_function
-from googleapiclient.discovery import build, MediaFileUpload
+from googleapiclient.discovery import build
 from httplib2 import Http
 from oauth2client import file, client, tools
 
@@ -16,20 +16,20 @@ if not creds or creds.invalid:
 service = build('drive', 'v3', http=creds.authorize(Http()))
 
 def main():
-	
+	SearchFolder("TestSteven")
+
+
 
 def UploadFile(filePath, folderID):
 	file_metadata = {
 		'name': 'test.csv',
 		'parents': [folderID]
 	}
-	print('test')
 
 	media = MediaFileUpload(filePath, mimetype='text/csv')
-	dataFile = service.files().create(body=file_metadata, 
+	service.files().create(body=file_metadata, 
 							media_body=media,
 							fields='id').execute()
-	print('File ID: %s' % dataFile.get('id'))
 
 def AddFolder(folderName):
 	file_metadata = {
@@ -43,11 +43,12 @@ def AddFolder(folderName):
 def SearchFolder(folderName):
 	page_token = None
 	while True:
-		response = service.files().list(q="mimeType='" + FILETYPE + "' and parents = 'root' and name = '" + folderName + "'",
+		response = service.files().list(q="mimeType='" + FILETYPE + "' and parents = 'root'" ,
 											fields='nextPageToken, files(id, name)',
 											pageToken=page_token).execute()
 		for eachFile in response.get('files', []):
-			return eachFile.get('id')
+			# Process change
+			print('Found file: %s (%s)' % (eachFile.get('name'), eachFile.get('id')))
 		page_token = response.get('nextPageToken', None)
 		if page_token is None:
 			break

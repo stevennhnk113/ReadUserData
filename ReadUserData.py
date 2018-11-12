@@ -1,7 +1,7 @@
 from DataControl import DataControl
 
-SPREADSHEET_ID = '1gcnPKfM5nWNzBLB4uW0G136Hi8yoiUZFS3I_Zw0Ot_s'
-DataControlObject = DataControl('TestSteven2')
+SPREADSHEET_ID = '1udHMPwkvyd92ywbE8Xi_Q9-GvrEk3AtHeZ1QLGi4MD0'
+DataControlObject = DataControl('INnomotion2')
 
 def main():
 	DataControlObject.GetDataFromGoogleSheets(SPREADSHEET_ID)

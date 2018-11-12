@@ -28,15 +28,18 @@ class BaseData:
 	def GetDataFromGoogleSheet(self, service, spreadSheetID):
 		self.service = service
 
-		result = service.spreadsheets().values().get(
-			spreadsheetId=spreadSheetID, range=self.Range).execute()
-		values = result.get('values', [])
+		try:
+			result = service.spreadsheets().values().get(
+					spreadsheetId=spreadSheetID, range=self.Range).execute()
+			values = result.get('values', [])
 
-		if not values:
-			self.Data = None
-		else:
-			self.Data = values
-			self.WriteDataToCSV()
+			if not values:
+				self.Data = None
+			else:
+				self.Data = values
+				self.WriteDataToCSV()
+		except:
+			print("Failed to get: " + self.DataName)
 
 	def UploadCsvToGoogleDrive(self, service, folderID):
 		file_metadata = {
@@ -44,7 +47,10 @@ class BaseData:
 			'parents': [folderID]
 		}
 
-		media = MediaFileUpload(self.CsvDirectory + self.DataName + '.csv', mimetype='text/csv')
-		service.files().create(body=file_metadata, 
-								media_body=media,
-								fields='id').execute()
+		try:
+			media = MediaFileUpload(self.CsvDirectory + self.DataName + '.csv', mimetype='text/csv')
+			service.files().create(body=file_metadata,
+									media_body=media,
+									fields='id').execute()
+		except:
+			print("Failed to upload to drive: " + self.DataName)
